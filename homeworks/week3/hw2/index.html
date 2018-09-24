@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>仿 Medium</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta property="og:title" content="Week3 Homework2"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://lidemy.github.io/mentor-program-2nd-Rainbowrain-TW/homeworks/week3/hw2/index.html"/>    
+    <meta property="og:site_name" content="Rain's Homework"/>
+    <meta property="og:description" content="MTR02 Week3 Homework2 模仿 Medium 的切版" />
+
+    <meta name="title" content="Week3 Homework1"/>
+    <meta name="type" content="website"/>
+    <meta name="url" content="https://lidemy.github.io/mentor-program-2nd-Rainbowrain-TW/homeworks/week3/hw1/index.html"/>    
+    <meta name="site_name" content="Rain's Homework"/>
+    <meta name="description" content="MTR02 Week3 Homework1 模仿 ASP.NET Web Application 的切版" />
+    <style>
+        html, body {
+            padding: 0px;
+            margin: 0px;
+            background-color: #333;        
+        }
+        .sidebar{
+            position:fixed;
+            height: 100%;
+            width: 5%;
+            top:0;
+            left:0;            
+            /* padding: 10.5% 0 0 2.6%; */
+            padding: 202px 0 0 2.6%;
+            color: #bbb;            
+        }
+        .container{
+            max-width: 720px;
+            height: 100%;
+            background-color: #333;            
+            margin: 0px auto;
+            padding-top: 20px;
+            color: #bbb;
+        }
+        .title{
+            font-size: 42px;                        
+        }
+        .content{
+            font-size: 21px;            
+        }
+        .content p{
+            margin: 30px 0;
+        }
+        .clap{
+            color:yellow;
+            display:block;
+        }
+        @media (max-width: 747px) {
+            .sidebar *{                
+                transition: all 0.1s;
+                opacity: 0;
+            }
+            .sidebar:hover *{                
+                opacity: 1;
+                transition: all 0.5s;
+            }
+            .container{
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .title{
+                font-size: 31px;
+            }
+            .content{
+                font-size: 17px;
+            }
+            
+            
+        }
+    </style>
+    <script>
+        function clap(){
+            var count = document.getElementById("clapCount").innerHTML;
+            count++;
+            document.getElementById("clapCount").innerHTML = count;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="sidebar"><span id="clapCount">567</span><span class="clap" onclick="clap()">👏</span></div><!--
+    --><div class="container">
+        <div class="title">從零到一：程式導師實驗計畫</div>
+        <div class="content">
+            <p>
+                前幾天我在滑臉書的時候，看到了這個 UX Mentorship Program，覺得很有趣。其實我之前也有想過類似的東西，但始終沒有付諸行動，這次趁著熱度還在，下定決心要來弄一個程式版的導師計畫。
+            </p>
+            <p>
+                在開始介紹這個計畫之前，先來簡單介紹一下我自己。
+            </p>
+            <p>
+                寫程式寫了十年，工作經驗約兩年半，實習的時候寫過 PHP、Corona SDK，第一份工作寫過 Android、Node.js，之後的兩份工作都是專職前端。
+            </p>
+            <p>
+                目前在新加坡工作，職稱是資深前端工程師。如果你想知道更多，可以直接參考我的 Linkedin。如果想看我做過的作品，基本上公開的只有一個，其他都是一些內部系統，可以到這裡。
+            </p>
+            <p>
+                你問我哪部分是我做的嗎？全部。
+                （其實是我接手上一個同事的，但是後來有大改版，所以看到的基本上都是出自我手。不過我離職之後有新的同事來接，所以有部分功能例如說排行榜之類的是我同事寫的）
+            </p>
+            <p>
+                前幾天我在滑臉書的時候，看到了這個 UX Mentorship Program，覺得很有趣。其實我之前也有想過類似的東西，但始終沒有付諸行動，這次趁著熱度還在，下定決心要來弄一個程式版的導師計畫。
+            </p>
+            <p>
+                在開始介紹這個計畫之前，先來簡單介紹一下我自己。
+            </p>
+            <p>
+                寫程式寫了十年，工作經驗約兩年半，實習的時候寫過 PHP、Corona SDK，第一份工作寫過 Android、Node.js，之後的兩份工作都是專職前端。
+            </p>
+            <p>
+                目前在新加坡工作，職稱是資深前端工程師。如果你想知道更多，可以直接參考我的 Linkedin。如果想看我做過的作品，基本上公開的只有一個，其他都是一些內部系統，可以到這裡。
+            </p>
+            <p>
+                你問我哪部分是我做的嗎？全部。
+                （其實是我接手上一個同事的，但是後來有大改版，所以看到的基本上都是出自我手。不過我離職之後有新的同事來接，所以有部分功能例如說排行榜之類的是我同事寫的）
+            </p>
+        </div>
+    </div>
+</body>
+</html>
