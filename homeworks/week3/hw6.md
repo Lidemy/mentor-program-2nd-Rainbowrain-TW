@@ -23,14 +23,14 @@ HTML5 推出的元素，此元素在網頁上會放置一塊矩形的繪圖區�
 例如有一個 div 設定寬為 30px 高為 30px，padding 為 5px，border 為 2px
 實際上在畫面上會佔 44x44 的大小
 
-margin
-╔══border══════════════╗
-║　   padding　　　　 　║
-║     ╔═══════════╗    ║
-║     ║content    ║    ║
-║     ╚═══════════╝    ║
-║　　　　　　　　　　　　║
-╚══════════════════════╝
+margin    
+╔══border═════════╗   
+║&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;　   padding &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;║   
+║&nbsp;&nbsp;&nbsp;&nbsp;     ╔═════════╗&nbsp;&nbsp;&nbsp;&nbsp;    ║   
+║&nbsp;&nbsp;&nbsp;&nbsp;     ║content&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ║&nbsp;&nbsp;&nbsp;&nbsp;    ║   
+║&nbsp;&nbsp;&nbsp;&nbsp;     ╚═════════╝&nbsp;&nbsp;&nbsp;&nbsp;    ║   
+║&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;　　　　　　　║   
+╚═══════════════╝   
 
 ## 請問 display: inline, block 跟 inline-block 的差別是什麼？
 
