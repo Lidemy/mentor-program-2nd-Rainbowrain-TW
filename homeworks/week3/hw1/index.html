@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>仿 ASP.NET</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta property="og:title" content="Week3 Homework1"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://lidemy.github.io/mentor-program-2nd-Rainbowrain-TW/homeworks/week3/hw1/index.html"/>    
+    <meta property="og:site_name" content="Rain's Homework"/>
+    <meta property="og:description" content="MTR02 Week3 Homework1 模仿 ASP.NET Web Application 的切版" />
+
+    <meta property="title" content="Week3 Homework1"/>
+    <meta property="type" content="website"/>
+    <meta property="url" content="https://lidemy.github.io/mentor-program-2nd-Rainbowrain-TW/homeworks/week3/hw1/index.html"/>    
+    <meta property="site_name" content="Rain's Homework"/>
+    <meta property="description" content="MTR02 Week3 Homework1 模仿 ASP.NET Web Application 的切版" />
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        .navbar {
+            width: 100%;
+            height: 40px;
+            background-color: #333333;
+
+            float: left;
+        }
+
+        #nav-title {
+            float: left;
+            height: 100%;
+            margin-left: 20px;
+            margin-right: 30px;
+
+
+            color: white;
+            font-size: 26px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+
+            line-height: 40px;
+        }
+
+        #nav-item {
+            float: left;
+            height: 100%;
+            margin-left: 10px;
+            margin-right: 10px;
+
+            color: #777777;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+
+            line-height: 40px;
+        }
+
+        .upper-container {
+            width: 100%;
+            background-color: #666666;
+
+        }
+
+        .upper-container div {            
+            max-width: 960px;
+            padding: 10px 15px 20px 15px;
+            margin: 0 auto;
+
+            background-color: #666666;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .upper-container div div {
+            margin-top:40px;
+            margin-bottom: -10px;
+            font-size: 80px;                                
+        }
+
+        .upper-container div p {
+            font-size: 16px;            
+        }
+
+        .upper-container div button {
+            width: 160px;
+            height: 53px;
+            background-color: royalblue;
+
+            font-size: 16px;
+            color: white;
+
+            border-radius: 10px;
+            border-style: none;
+            transition: 0.4s;
+        }
+
+        .upper-container div button:hover {
+            cursor: pointer;
+            background-color: rgb(36, 83, 224);
+        }
+
+
+        .lower-container {
+            /* width: 100%; */            
+            height: 33%;
+            /* background-color: #AA8888; */
+            background-color: snow;
+
+        }
+
+        .lower-container div {
+            /* width: 80%;             */
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .lower-container div div {
+            width: 32.5%;            
+            float: left;
+            margin: 0px;
+            
+            margin: 0px 2px 0px 2px;
+
+            /* border: black 1px solid; */
+        }
+        .lower-container div div h1 {
+            font-size: 24px;
+
+        }
+        .lower-container div div p {
+            font-size: 14px;
+            
+        }
+        .lower-container div div button {
+            width: 120px;
+            height: 40px;
+            background-color: gray;
+
+            font-size: 14px;
+            color: white;
+
+            border-radius: 10px;
+            border-style: none;
+            transition: 0.4s;
+        }
+        .lower-container div div button:hover {
+            cursor: pointer;
+            background-color: rgb(95, 95, 95);
+        }
+
+
+        .foot {
+            /*
+            position: absolute;
+            top: 95%;
+            bottom: 0px;
+            */            
+            /* width: 100%; */
+            height: 10%;            
+            background-color: snow;
+        }
+
+        .foot div {
+            max-width: 960px;
+            margin: 0 auto;
+            /* width: 80%; */
+            height: 100%;
+            /* margin-left: 10%; */
+        }
+
+        .foot hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #777777;
+            margin: 1em 0;
+            padding: 0;
+        }
+
+        @media (max-width: 747px) {
+
+            .lower-container div div{
+                width:100%;
+            }
+
+            .lower-container div div~div{
+                margin-top:20px;
+            }
+            .lower-container {
+                padding-left:20px;
+                padding-right:20px;
+            }
+            .foot{
+                padding-left:20px;
+                padding-right:20px;
+            }
+    }
+    </style>
+</head>
+<div class="navbar">
+    <span id="nav-title">Navbar</span>
+    <span id="nav-item">Home</span>
+    <span id="nav-item">Link</span>
+    <span id="nav-item">Info</span>
+    <span id="nav-item">About</span>
+</div>
+
+<div class="upper-container">
+    <div class="upper-item">
+        <div>Hello, world!</div>
+            <p>This is a template for a simple marketing or informational website. It includes a large callout called a
+                jumbotron and three supporting pieces of content. Use it as a starting point to create something more
+                unique.</p>
+            <button>Learn More >></button>
+    </div>
+</div>
+
+<div class="lower-container">
+    <div>
+        <div class="lower-item">
+            <h1>Heading
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+                <button>Learn More >></button>
+        </div>
+        <div class="lower-item">
+            <h1>Heading
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+                <button>Learn More >></button>
+        </div>
+        <div class="lower-item">
+            <h1>Heading
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+                <button>Learn More >></button>
+        </div>
+    </div>
+</div>
+
+<div class="foot">
+    <div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+        <hr>© Company 2017-2018
+    </div>
+</div>
+
+<body></body>
+
+</html>
