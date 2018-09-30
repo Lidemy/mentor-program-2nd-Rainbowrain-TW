@@ -1,0 +1,292 @@
+<html>
+<head>
+    <title>Rain's Calculator</title>
+    <style>
+        body {
+            background-color: seagreen;
+        }
+
+        div {
+            border-radius: 6px;
+            font-family: 'Comic Sans MS', 'Consolas', Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            width: 400px;
+            height: 420px;
+            margin: 20px auto;
+            border: black 4px solid;
+            border-radius: 6px;
+            background-color: #444;
+            box-sizing: border-box;
+        }
+
+        .monitor {
+            width: 95%;
+            height: 60px;
+            padding: 0px 4px;
+            margin: 10px auto;
+            text-align: right;
+            background-color: silver;
+            color: black;
+            font-size: 50px;
+            font-family: Impact, 'Arial Narrow Bold', sans-serif;
+            box-sizing: border-box;
+
+            border-radius: 6px;
+        }
+
+        .modify {
+            width: 95%;
+            margin: 10px auto 5px auto;
+            padding: 5px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .modify>div {
+            width: 24%;
+            height: 40px;
+            background-color: royalblue;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+        }
+        .modify>div:hover {
+            background-color: #0c55ea;
+            transition: background 0.3s;
+        }
+
+        .feature {
+            width: 24%;
+            height: 40px;
+            background-color: pink;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            display: flex;
+            cursor: pointer;
+        }
+        .feature:hover {
+            background-color: #fd869b;
+            transition: background 0.3s;
+        }
+
+        .numbers {
+            width: 24%;
+            height: 40px;
+            background-color: #888;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            display: flex;
+            cursor: pointer;
+        }
+        .numbers:hover {
+            background-color: #555;
+            transition: background 0.3s;
+        }
+
+        .result {
+            height: 90px;
+            background-color: orange;
+            cursor: pointer;
+        }
+        .result:hover{
+            background-color: darkorange;
+            transition: background 0.3s;
+        }
+
+        .board {
+            width: 95%;
+            margin: 0px auto;
+            padding: 0px 5px;
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .board__item {
+            width: 74%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .board__item>div {
+            width: 32.43%;
+        }
+        .alert{
+            color: red;
+            text-align: center;
+        }
+    </style>
+    <script>
+        /*
+        q1. 現在的作法我必須在每個 div 都加上 onclick 事件，如何在 class 加事件？
+            例如在所有的 feature class 加事件，然後去判斷現在按的是哪個鍵再做對應的動作？
+        */
+        var monitor;
+        var currentNumber = [];
+        var preNumber = 0;
+        var currentSign;
+
+        var modifyMinus = [];
+        var modifyPlus = [];
+        var modifyResult = 0;
+
+        function numbers_onclick(key) {
+            if (key.innerHTML === ".") {
+                if (currentNumber.indexOf(".") < 0) {
+                    currentNumber.push(".");
+                    monitor.innerHTML = currentNumber.join('');
+                }
+            } else if (monitor.innerHTML.length === 13) {
+                console.log('數字長度已達上限')
+                monitor.style.color = 'silver';
+                setTimeout(function(){
+                    monitor.style.color = 'black';
+                }, 150)                
+            }else {
+                currentNumber.push(key.innerHTML);
+                monitor.innerHTML = currentNumber.join('');
+            }
+        }
+
+        function feature_click(key) {
+            switch (key.innerHTML) {
+                case "±":
+                    monitor.innerHTML = Number(monitor.innerHTML) * -1;
+                    currentNumber = monitor.innerHTML.split('');
+                    break;
+                case "C":
+                    monitor.innerHTML = 0;
+                    monitor.style.color = 'black';
+                    currentNumber = [];
+                    currentSign = "";
+                    preNumber = 0;
+                    break;
+                case "=":
+                    compute();
+                    preNumber = 0;
+                    break;
+                default:
+                    compute(key.innerHTML);
+                    break;
+            }
+        }
+
+        function compute(sign) {
+            if (preNumber === 0) {
+                preNumber = monitor.innerHTML;
+                currentNumber = [];
+                currentSign = sign;
+            } else {
+                switch (currentSign) {
+                    case "+":
+                        preNumber = Number(preNumber) + Number(monitor.innerHTML);
+                        break;
+                    case "-":
+                        preNumber = Number(preNumber) - Number(monitor.innerHTML);
+                        break;
+                    case "×":
+                        preNumber = Number(preNumber) * Number(monitor.innerHTML);
+                        break;
+                    case "÷":
+                        preNumber = Number(preNumber) / Number(monitor.innerHTML);
+                        break;
+                }
+                monitor.innerHTML = preNumber;
+                currentNumber = [];
+                currentSign = sign;
+                if (monitor.innerHTML.length > 13) {
+                    monitor.style.color = 'red';
+                    document.getElementsByClassName('alert').item(0).innerHTML = "被玩壞惹啦!! 你要對人家負責QAQ";
+                    console.log
+                }
+            }
+        }
+
+        function modify_onclick(key) {
+            switch (key.innerHTML) {
+                case "M+":
+                    modifyPlus.push(monitor.innerHTML);
+                    monitor.innerHTML = 0;
+                    currentNumber = [];
+                    break;
+                case "M-":
+                    modifyMinus.push(monitor.innerHTML);
+                    monitor.innerHTML = 0;
+                    currentNumber = [];
+                    break;
+                case "MR":
+                    modifyPlus.forEach(num => {
+                        modifyResult += Number(num);
+                    });
+                    modifyMinus.forEach(num => {
+                        modifyResult -= Number(num);
+                    });
+                    modifyPlus = [];
+                    modifyMinus = [];
+                    monitor.innerHTML = modifyResult;
+
+                    break;
+                case "MC":
+                    modifyPlus = [];
+                    modifyMinus = [];
+                    modifyResult = 0;
+                    monitor.innerHTML = 0;
+                    preNumber = 0;
+                    currentNumber = [];
+                    monitor.style.color = 'black';
+                    break;
+            }
+        }
+
+        addEventListener("load", function () {
+            monitor = document.getElementsByClassName("monitor").item(0);
+        })
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="monitor">0</div>
+        <div class="modify">
+            <div class="modify__item" onclick="modify_onclick(this)">MC</div>
+            <div class="modify__item" onclick="modify_onclick(this)">M+</div>
+            <div class="modify__item" onclick="modify_onclick(this)">M-</div>
+            <div class="modify__item" onclick="modify_onclick(this)">MR</div>
+        </div>
+        <div class="board">
+            <div class="feature" onclick="feature_click(this)">C</div>
+            <div class="feature" onclick="feature_click(this)">±</div>
+            <div class="feature" onclick="feature_click(this)">÷</div>
+            <div class="feature" onclick="feature_click(this)">×</div>
+            <div class="numbers" onclick="numbers_onclick(this)">7</div>
+            <div class="numbers" onclick="numbers_onclick(this)">8</div>
+            <div class="numbers" onclick="numbers_onclick(this)">9</div>
+            <div class="feature" onclick="feature_click(this)">+</div>
+            <div class="numbers" onclick="numbers_onclick(this)">4</div>
+            <div class="numbers" onclick="numbers_onclick(this)">5</div>
+            <div class="numbers" onclick="numbers_onclick(this)">6</div>
+            <div class="feature" onclick="feature_click(this)">-</div>
+            <div class="board__item">
+                <div class="numbers" onclick="numbers_onclick(this)">1</div>
+                <div class="numbers" onclick="numbers_onclick(this)">2</div>
+                <div class="numbers" onclick="numbers_onclick(this)">3</div>
+                <div class="numbers" onclick="numbers_onclick(this)">0</div>
+                <div class="numbers" onclick="numbers_onclick(this)">00</div>
+                <div class="numbers" onclick="numbers_onclick(this)">.</div>
+            </div>
+            <div class="feature result" onclick="feature_click(this)">=</div>
+        </div>
+        <div class="alert"></div>
+    </div>
+</body>
+</html>

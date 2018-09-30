@@ -1,0 +1,321 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rain's Questionnaire</title>
+    <style>
+        body{
+            margin: 0;
+            background-color: darkseagreen;
+        }
+        a{            
+            color: dodgerblue;
+        }
+        .alert{
+            color:red;            
+            font-size: 20px;
+            vertical-align: top;            
+        }
+        .alert__message{
+            color:red;                        
+            vertical-align: top;            
+        }
+        .alert__message-check{
+            color:darkred;
+        }
+        .background-top{
+            background-image: url('https://i.imgur.com/UsUfEFV.jpg');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 278px;
+            z-index: -1;
+        }
+        .container{
+            max-width: 640px;
+            margin: 180px auto 10px auto;
+            padding: 15px 34px;
+            background-color: #444;
+            color: silver;
+            display: flex;
+            flex-direction: column;
+            border-top: 10px seagreen solid;
+
+            box-sizing: border-box;
+        }
+        .container>div:not(:nth-last-child(2)){
+             margin-bottom: 10px;
+            padding: 15px 0px 30px 0px;
+            display:flex;
+            flex-direction:column;
+            flex-wrap: nowrap;
+            border-radius: 3px;
+        }
+        .title{
+            font-size: 36px;
+            text-align: center;
+        }        
+        .question-title{
+            font-size: 24px;
+        }
+        .question-title~span:not(:first-child){
+            margin-top:3px;
+            font-size: 14px;
+        }
+        .answer{
+            width: 300px;
+            border: none;
+            box-shadow: 0px 1px #e8ebec;            
+            background-color:transparent;
+            color: silver;
+            font-size: 18px;
+            margin-top:10px;
+            outline: none;
+            transition: all 0.4s ease-in-out;
+        }
+        .answer:focus{
+            box-shadow: 0px 3px royalblue;            
+        }
+        .answer__long{
+            width: 550px;
+        }
+        .submit{
+            width: 90px;
+            height: 40px;
+            background-color: royalblue;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            margin-bottom: 15px; 
+            padding: 0px;
+        }
+        .submit__disabled{         
+            width: 90px;
+            height: 40px;
+            background-color: grey;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            margin-bottom: 15px; 
+            padding: 0px;
+        }
+        .submit:hover{
+            cursor: pointer;
+            background-color: rgb(44, 90, 230);
+            transition: background 0.3s;
+        }
+
+        .warnning{
+            position: relative;
+            top: -15px;
+            
+        }
+        .footer{
+            margin: 20px auto;
+            text-align: center;
+            font-size: 24px;
+            color:lightgrey;
+            font-weight: bold;
+            font-family: 'Comic Sans MS', '微軟正黑體','Consolas', Arial, Helvetica, sans-serif;
+        }
+        .footer p{
+            font-size: 12px;
+            color:gray;
+            font-weight: normal;
+            font-family:'新細明體';
+        }
+
+        /*Radio Button 特效*/
+        .radio__container{
+            position: relative;
+            margin: 8px 0px;
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;                    
+            align-content: center;
+        }
+        .answer__type{
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            margin-right: 0px;
+            opacity: 0;
+            z-index: 10;
+        }
+        .answer__type + label::before{
+            content: '';
+            background: #f4f4f4;
+            border-radius: 100%;
+            border: 2px solid #3197EE;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            position: relative;
+            top: 5px;                    
+            cursor: pointer;                        
+            transition: all 350ms;
+        }
+        .answer__type:checked + label::before{
+            background-color: #3197EE;
+            box-shadow: inset 0 0 0 4px #f4f4f4;      
+        }
+        .answer__type:focus + label::before{
+            border-color: rgba(222, 222, 222, 0.7);
+            box-shadow: 0 0 0 7px rgba(69, 192, 236, 0.7);
+            transition: all 500ms;
+        }
+        .answer__type + label:empty:before{
+            margin-right: 10px;            
+        }        
+    </style>
+    <script>
+        //檢查答案是否為空值
+        function checkAnswer(ans){
+            if (ans.value === ""){
+                ans.parentNode.style.background = '#d67e8e';
+                console.log('answer empty');
+                ans.parentNode.children[ans.parentNode.children.length - 1].innerHTML = "這是必填問題";
+            }else{
+                ans.parentNode.style.background = 'transparent';
+                ans.parentNode.children[ans.parentNode.children.length - 1].innerHTML = "";
+            }
+        }
+
+        //Email驗證
+        function checkEmail(ans){
+            if (ans.parentNode.className == 'email' && ans.value !== ""){
+                var emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+                if (ans.value.search(emailRule) == -1){
+                    ans.parentNode.style.background = '#d67e8e';
+                    console.log('answer empty');
+                    ans.parentNode.children[ans.parentNode.children.length - 1].innerHTML = "Email格式錯誤";
+                }
+            }
+        }
+
+        //點擊提交後做檢查，檢查通過才跳內容提示
+        function submit(){
+            var answers = document.querySelectorAll('.answer:not(#answer__other)')
+            var flag = 0;
+            var result = "";
+
+            //所有必填問題是否已回答
+            for(var i=0;i<answers.length;i++){
+                if (answers[i].value == "") {
+                    checkAnswer(answers[i]);
+                    flag++;
+                }                
+            }
+
+            //報名類型是否已點選
+            if (document.querySelector('input[name=type]:checked') === null){
+                document.querySelector('.type').style.background = "#d67e8e"
+                flag++;
+            }
+
+            if (flag > 0) {
+                //檢查未通過
+                 alert('請回答所有必填問題') 
+            }else{
+                //檢查通過並在 conosle 印出內容然後跳 confirm 視窗確認填寫內容
+                result += "您填寫的內容如下" + "\r\n"
+                result += "電子郵件： "+ document.getElementById('answer__email').value + "\n"
+                result += "暱稱： "+ document.getElementById('answer__nickname').value + "\n"  
+                result += "報名類型： "+ document.querySelector('input[name=type]:checked').value + "\n"
+                result += "現在的職業： "+ document.getElementById('answer__class').value + "\n"
+                result += "是否有程式相關背景？： "+ document.getElementById('answer__background').value + "\n"
+                result += "其他： "+ document.getElementById('answer__other').value + "\r\n"
+                console.log(result)
+                result += "以上內容是否正確？"
+
+                if (confirm(result)){
+                    alert('恭喜您完成報名，請敬候佳音')
+                    //把提交按鈕 disable
+                    document.querySelector('.submit').onclick = undefined;
+                    document.querySelector('.submit').classList.add('submit__disabled')
+                    document.querySelector('.submit').classList.remove('submit')
+                }
+            }
+        }
+
+        //讓 radio 失去 foucs 恢復 input radio 的樣式
+        function unfocus(rbn) {
+            setTimeout(() => { 
+                rbn.blur()                 
+                }, 600);
+            document.querySelector('.type').style.background = "transparent"                
+        }
+    </script>
+</head>
+
+<body onbeforeunload="return ''">
+<div class="background-top"></div>
+<div class="container">
+    <div class="title">程式導師實驗計畫第二期報名表單</div>
+
+    <div class="preface">
+        <span>詳情請參考：<a href="https://medium.com/hulis-blog/mentor-program-s2-f876c4e13d3b">https://medium.com/hulis-blog/mentor-program-s2-f876c4e13d3b</a></span><br>
+        <span>填完之後請務必按照文章內的說明再寄信給我，才算報名成功喔</span><br>
+        <span class="alert__message">*必填</span>
+    </div>
+
+    <div class="email"><span class="question-title">電子郵件地址<span class="alert">*</span></span>
+        <input type="text" placeholder="你的電子郵件" class="answer" onkeyup="checkAnswer(this)" onblur="checkAnswer(this),checkEmail(this)"
+            id="answer__email" />
+        <span class="alert__message-check"></span>
+    </div>
+
+    <div class="nickname"><span class="question-title">暱稱<span class="alert">*</span></span>
+        <input type="text" placeholder="您的回答" class="answer" onkeyup="checkAnswer(this)" onblur="checkAnswer(this)" id="answer__nickname" />
+        <span class="alert__message-check"></span>
+    </div>
+
+    <!--
+    <div class="type"><span class="question-title">報名類型<span class="alert">*</span></span>
+        <input type="radio" name="type" value="beginner"  class="answer__type">從零到一基礎班（一個月後開始收保證金 3000，淘汰不退還，結業後兩個月內找到工作付一個月半薪水，沒工作不用付）<br>
+        <input type="radio" name="type" value="programer"  class="answer__type">在職工程師加強班（一個月後開始收保證金 3000，兩個月時收學費 30000，被淘汰不退還）<br>
+    </div>
+    -->
+    <div class="type"><span class="question-title">報名類型<span class="alert">*</span></span>
+        <div class="radio__container">
+            <input type="radio" name="type" value="beginner" class="answer__type" onclick="unfocus(this)"><label></label><span>從零到一基礎班（一個月後開始收保證金
+                3000，淘汰不退還，結業後兩個月內找到工作付一個月半薪水，沒工作不用付）</span><br>
+        </div>
+        <div class="radio__container">
+            <input type="radio" name="type" value="programer" class="answer__type" onclick="unfocus(this)"><label></label><span>在職工程師加強班（一個月後開始收保證金
+                3000，兩個月時收學費
+                30000，被淘汰不退還）</span><br>
+        </div>
+    </div>
+
+    <div class="class"><span class="question-title">現在的職業<span class="alert">*</span></span>
+        <span>範例：學生、前端工程師、待業中、業務</span>
+        <input type="text" placeholder="您的回答" class="answer" onkeyup="checkAnswer(this)" onblur="checkAnswer(this)" id="answer__class" />
+        <span class="alert__message-check"></span>
+    </div>
+
+    <div class="code-background"><span class="question-title">是否有程式相關背景？<span class="alert">*</span></span>
+        <span>範例：無、高中時候學過C++、學過一點網頁前端、目前在資策會上課...</span>
+        <input type="text" placeholder="您的回答" class="answer answer__long" onkeyup="checkAnswer(this)" onblur="checkAnswer(this)"
+            id="answer__background" />
+        <span class="alert__message-check"></span>
+    </div>
+
+    <div class="other"><span class="question-title">其他</span><span>任何你想說的</span>
+        <input type="text" placeholder="您的回答" class="answer answer__long" id="answer__other" />
+    </div>
+
+    <div class="submit" onclick="submit()">提交</div>
+    <div class="warnning">請勿利用 Google 表單送出密碼。</div>
+</div>
+
+<div class="footer">
+    <p>Google 並未認可或建立這項內容。 檢舉濫用情形 - 服務條款 - 其他條款</p>Google表單
+</div>
+</body>
+</html>
