@@ -1,0 +1,206 @@
+<html>
+
+<head>
+    <title>League of Legends Top20 Live Stream</title>
+    <style>
+        body {
+            background-color: black;
+            background-image: url("https://i.imgur.com/xn2Lour.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100% 90%;
+            background-attachment: fixed;
+        }
+
+        .container {
+            margin: 10% auto 0px auto;            
+            width: 98%;
+            min-height: 10%;
+            display: flex;
+            padding: 10px auto;
+            flex-direction: row;
+            justify-content: left;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+        }
+
+        .stream {
+            width: 19%;
+            height: 27%;
+            min-width: 351px;            
+            background-color: rgba(255,255,255,0.8);
+            box-sizing: border-box;
+            margin: 10px 0.5%;
+        }
+
+        .streamThumbnail {
+            width: 100%;
+            height: 70%;
+            background-size: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .streamViewers{
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            color:white;
+            padding-left:6px;
+            font-family: '微軟正黑體','新細明體';
+            font-size: 12px;
+
+        }
+
+        .streamDetail {
+            width: 100%;
+            height: 30%;
+            display: flex;
+            flex-direction: row;
+            align-content: space-around;
+            padding: 5px;
+        }
+        .streamLogo {
+            width: 15%;
+            height: 80%;
+            background-size: 100% 100%;
+            display: flex;
+        }
+        .streamInfo {
+            width: 85%;
+            height: 80%;
+            background-size: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-around;
+            padding: 0px 10px;
+            box-sizing: border-box;
+        }
+        .streamStatus {
+            width: 100%;            
+            text-overflow : ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .streamName {
+            font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+            font-size: 12px;
+            color: gray
+        }
+
+    </style>
+    <script>
+        var client_Id = 'n5edu47nc316f7tf8ql5dkgj23tqm5'; //developer id
+        var game = "League%20of%20Legends"; //game type
+        var limit = 20; //max object        
+
+        var request = new XMLHttpRequest();
+
+        // request.open('GET', 'https://api.twitch.tv/helix/streams?game='+game+'&limit='+limit, true);
+        request.open('GET', 'https://api.twitch.tv/kraken/streams?game=' + game + '&limit=' + limit, true);
+        request.setRequestHeader('Client-ID', client_Id)
+        request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
+
+        request.onload = function () {
+            if (request.status >= 200 && request.status < 400) {
+                // Success!                
+                streamRender(JSON.parse(request.responseText))                
+            }else{
+                alert('無法與伺服器連線，請稍候重新嘗試')
+            }
+        };
+
+        request.send();
+
+        function streamRender(jsAry) {
+            for (var i = 0; i < jsAry['streams'].length; i++) {                
+                createStream(streamParse(jsAry['streams'][i]))            
+            }
+        }
+        
+        function streamParse(jsObj) {
+            var streamObj = {
+                //[channel]
+                userName: jsObj['channel']['display_name'], //實況主顯示 id [display_name]
+                userId: jsObj['channel']['name'], //實況主頻道 id [name]
+                logo: jsObj['channel']['logo'], //實況主頻道 logo [logo]
+                status: jsObj['channel']['status'], //實況 title [status]    
+                url: jsObj['channel']['url'], //頻道連結 [url]
+
+                //[preview]
+                preview: jsObj['preview']['medium'], //預覽圖片(中) [medium]
+                viewerCount: jsObj['viewers'], //觀賞人數 [viewers]
+
+                //customer
+                get videos() {
+                    return this.url + "/videos"
+                }
+            }
+            return streamObj;
+        }
+
+        function createStream(streamObj) {            
+            var monitor = document.querySelector('.container');
+            var streamBox = document.createElement("div");
+            streamBox.classList.add('stream');
+
+            var streamUrl = document.createElement("a");
+            streamUrl.target = "_blank"
+            streamUrl.href = streamObj.url
+
+            var streamThumbnail = document.createElement("div");
+            streamThumbnail.style.backgroundImage = `url(${streamObj.preview})`
+            streamThumbnail.classList.add('streamThumbnail')
+
+
+            var streamViewers = document.createElement("div");
+            streamViewers.innerText = numberWithCommas(streamObj.viewerCount) + " 位觀眾"
+            streamViewers.classList.add('streamViewers')
+
+            var streamDetail = document.createElement("div");
+            streamDetail.classList.add('streamDetail')
+            var streamLogo = document.createElement("div");
+            streamLogo.style.backgroundImage = `url(${streamObj.logo})`
+            streamLogo.classList.add('streamLogo')
+
+            var streamInfo = document.createElement("div");
+            streamInfo.classList.add('streamInfo')
+            var streamStatus = document.createElement("div");
+            streamStatus.innerText = streamObj.status;
+            streamStatus.title = streamObj.status;
+            streamStatus.onclick = function(){ window.open(streamObj.videos, "_blank")};
+            //streamStatus.onclick = function(){ location.href = `${streamObj.videos}`};
+            console.log(streamStatus.onclick);
+            streamStatus.classList.add('streamStatus')
+            var streamName = document.createElement("div");
+            streamName.innerText = streamObj.userName;
+            streamName.classList.add('streamName')
+
+            streamThumbnail.appendChild(streamViewers)
+
+            streamInfo.appendChild(streamStatus)
+            streamInfo.appendChild(streamName)
+
+            streamDetail.appendChild(streamLogo)
+            streamDetail.appendChild(streamInfo)
+
+            streamUrl.appendChild(streamThumbnail)
+            streamBox.appendChild(streamUrl)
+            streamBox.appendChild(streamDetail)
+
+            monitor.appendChild(streamBox);
+        }
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    </script>
+</head>
+<body>    
+    <div class="container"></div>
+</body>
+</html>

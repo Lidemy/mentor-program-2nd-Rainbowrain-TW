@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>myQuery</title>
+    <style>
+        body {
+            background-color: #112211;
+        }
+
+        #dd {
+            width: 500px;
+            height: 200px;
+            background-color: #777777;
+            color: black;
+            border: 2px white solid;
+            margin:5px 5px;
+            flex-direction: row;
+            align-items: center;
+            justify-content:space-around;
+            display:flex;
+        }
+        #dd>div{
+            width: 150px;
+            height: 100px;
+            text-align: center;
+        }
+        #dd>div:first-child{
+            background-color: pink;
+            border: white 2px solid;
+        }
+        #dd>div:nth-child(2){
+            background-color: palegoldenrod;
+            border: white 2px solid;
+        }
+        #dd>div:nth-child(3){
+            background-color: paleturquoise;
+            border: white 2px solid;
+        }
+        .ddtag{
+            position:fixed;
+            top:15px;
+            left:15px;
+        }
+        input{
+            margin: 10px 10px;
+        }
+        span{
+            margin-right: 5px;
+            color:white;
+        }
+    </style>
+    <script>
+        function q(selector) {
+            var result = document.querySelector(selector)
+            result.hide = function(){
+                result.defaultDisplay = result.style.display;
+                result.style.display = 'none'
+            }
+            result.show = function(){
+                result.style.display = result.defaultDisplay;
+            }
+            return result;
+        }
+
+        function show(btn) {
+            if (btn.previousSibling.value !== ""){
+            var ele = q(btn.previousSibling.value)
+            ele.hide();
+            }
+        }
+
+        function hide(btn) {
+            if (btn.previousSibling.value !== ""){
+            var ele = q(btn.previousSibling.value)
+            ele.show();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="dd"><div class="div1">我的 class 是 div1</div><div class="div2" id="div2">我的 class 跟 id 都是 div2</div><div>我沒有class跟div</div>
+    <div class="ddtag">我的id是dd</div>    
+    </div>
+    <input type="text" placeholder="請輸入要隱藏的元素搜尋字"><button id="btnShow" onclick="show(this)">隱藏</button><br>
+    <input type="text" placeholder="請輸入要顯示的元素搜尋字"><button id="btnHide" onclick="hide(this)">顯示</button><br>    
+</body>
+</html>
