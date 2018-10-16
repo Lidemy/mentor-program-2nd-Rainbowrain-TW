@@ -1,0 +1,589 @@
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 30px;
+    width: 100%;
+    background: black;
+    background-image: url('anonymous_wp.jpg');
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
+.body_hidden {
+    background-image: none;
+    background-color: snow;
+    transition: ease-in-out all 1.3s;
+}
+
+.body_hidden *:not(.logoutForm__submit) {
+    background-image: none;
+    opacity: 0;
+    transition: ease-in-out all 1s;
+}
+
+.navbar {
+    width: 100%;
+    min-height: 50px;
+    height: 5%;
+    background: #111;
+    color: slategray;
+    text-align: center;
+    font-family: 'Segoe Script', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+}
+
+.navbar__signIn {
+    position: absolute;
+    top: 2px;
+    right: 50px;
+    color: white;
+    margin-right: 15px;
+    transition: all 0.5s;
+}
+
+.navbar__signIn:hover {
+    color: palegoldenrod;
+    font-size: 25px;
+}
+
+.board {
+    width: 60%;
+    min-height: 50px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.post {
+    border: 1px outset;
+    border-top: darkred;
+    border-left: darkred;
+    border-right: red;
+    border-bottom: red;
+    border-radius: 3px;
+    box-shadow: darkred 2px 2px 15px 2px;
+    color: snow;
+    width: 80%;
+    margin: 10px 0px;
+    padding: 10px 10px;
+}
+
+.post__title {
+    width: 90%;
+    min-width: 0px;
+    height: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 24px;
+    /* display: flex; 設置為 flex 時 text-overflow 不會作用 */
+    align-items: center;
+    /* flex-wrap: nowrap; */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: white;
+}
+
+.post__info {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 4px darkslateblue double;
+}
+
+.post__info div {
+    height: 50px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+}
+
+.post__info img {
+    width: 64px;
+    height: 64px;
+}
+
+.post__content {
+    width: 100%;
+    min-height: 30px;
+    margin: 15px 10px 20px 10px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+    font-family: "微軟正黑體", sans-serif;
+}
+
+.post__newcomment {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.post__newcomment__avatar {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post__newcomment__avatar>img {
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.post__newcomment__textarea {
+    margin: 0px 10px;
+    width: 75%;
+    resize: none;
+}
+
+.post__newcomment__submit {
+    cursor: pointer;
+    margin-left: 5px;
+    line-height: 32px;
+    text-align: center;
+    border-top: 1px white solid;
+    border-left: 1px white solid;
+    width: 80px;
+    height: 36px;
+    box-shadow: silver 2px 2px 5px;
+    border-radius: 3px;
+    background-color: #777;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: all 0.3s;
+}
+
+.post__newcomment__submit:hover {
+    background-color: #aaa;
+}
+
+/*Comment*/
+.post__comment {
+    width: 80%;
+    border-radius: 8px;
+    margin: 5px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.comment {
+    display: flex;
+    flex-direction: row;
+    margin: 7px 0px;
+    padding: 8px 0px;
+    box-shadow: gainsboro 1px 2px 14px -2px;
+}
+
+.comment__info {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comment__info div:last-child {
+    width: 80px;
+    align-items: center;
+}
+
+.comment__info img {
+    width: 64px;
+    height: 64px;
+}
+
+.comment__content {
+    padding: 5px;
+    width: 80%;
+}
+
+/*發表新文章*/
+.newpost {
+    width: 60%;
+    height: 20%;
+    color: silver;
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.newpost>* {
+    margin-left: 10%;
+    margin-top: 10px;
+}
+
+.newpost input[type="text"] {
+    width: 80%;
+    border-radius: 3px;
+}
+
+.newpost textarea {
+    width: 80%;
+    height: 50%;
+    border-radius: 3px;
+    overflow-y: hidden;
+    resize: vertical;
+}
+
+.newpost__submit {
+    width: 80px;
+    height: 30px;
+    box-shadow: silver 2px 2px 5px;
+    border-radius: 3px;
+    background-color: #777;
+    color: white;
+    transition: all 0.3s;
+}
+
+.newpost__submit:hover {
+    background-color: #aaa;
+}
+
+/* 登入視窗 */
+.loginForm {
+    width: 400px;
+    height: 150px;
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    border: royalblue 2px solid;
+    border-radius: 5px;
+    background-color: #ccc;
+    color: white;
+    font-family: 'Lucida Sans', Verdana, sans-serif;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: all 0.8s;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1)
+}
+
+.loginForm_show {
+    opacity: 1;
+    right: 20px;
+    -webkit-transition: all 1s;
+    background-color: #777;
+}
+
+.loginForm_hidden {
+    opacity: 0;
+    top: -50px;
+    -webkit-transition: all 2.5s;
+    background-color: #777;
+}
+
+.loginForm__idLabel {
+    height: 17%;
+    width: 85px;
+    line-height: 26px;
+    margin: 5px 0px;
+}
+
+.loginForm__idInput {
+    height: 17%;
+    width: 275px;
+    margin: 5px 0px;
+}
+
+.loginForm__pwLabel {
+    height: 17%;
+    width: 85px;
+    line-height: 26px;
+    margin: 5px 0px;
+}
+
+.loginForm__pwInput {
+    height: 17%;
+    width: 275px;
+    margin: 5px 0px;
+}
+
+.loginForm__submit {
+    height: 17%;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    margin: 5px 0px;
+    background-color: #555;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 0px 100px;
+}
+
+.loginForm__submit:hover {
+    background-color: #888;
+    color: snow;
+}
+
+.loginForm__signUp {
+    height: 17%;
+    width: 310px;
+    display: flex;
+    justify-content: center;
+    margin: 5px 0px;
+    transition: all 0.3s;
+}
+
+.loginForm__signUp:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+.loginForm__hint {
+    font-size: 12px;
+}
+
+/* 登出視窗 */
+.logoutForm {
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    border: crimson 2px solid;
+    border-radius: 5px;
+    background-color: #ccc;
+    color: white;
+    font-family: 'Lucida Sans', Verdana, sans-serif;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: all 0.8s;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1)
+}
+
+.logoutForm_show {
+    opacity: 1;
+    right: 20px;
+    -webkit-transition: all 1s;
+    background-color: #ccc;
+}
+
+.logoutForm__submit {
+    height: 30px;
+    width: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: crimson;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.logoutForm__submit:hover {
+    background-color: #F76;
+    color: snow;
+}
+
+/* 註冊視窗 */
+.signUpForm {
+    width: 500px;
+    height: 380px;
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    border: slateblue 2px solid;
+    border-radius: 5px;
+    background-color: snow;
+    color: white;
+    font-family: 'Lucida Sans', Verdana, sans-serif;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: all 0.8s;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1)
+}
+
+.signUpForm input {
+    font-size: 16px;
+}
+
+.signUpForm_show {
+    opacity: 1;
+    right: 20px;
+    -webkit-transition: all 1s;
+    background-color: #777;
+}
+
+.signUpForm_hidden {
+    opacity: 0;
+    top: -170px;
+    -webkit-transition: all 3.5s;
+    background-color: #777;
+}
+
+.signUpForm__idLabel {
+    height: 8%;
+    width: 85px;
+    line-height: 26px;
+    margin: 5px 0px;
+}
+
+.signUpForm__idInput {
+    height: 8%;
+    width: 375px;
+    margin: 5px 0px;
+}
+
+.signUpForm__nickLabel {
+    height: 8%;
+    width: 85px;
+    line-height: 26px;
+    margin: 5px 0px;
+}
+
+.signUpForm__nickInput {
+    height: 8%;
+    width: 375px;
+    margin: 5px 0px;
+}
+
+.signUpForm__pwLabel {
+    height: 8%;
+    width: 85px;
+    line-height: 26px;
+    margin: 5px 0px;
+}
+
+.signUpForm__pwInput {
+    height: 8%;
+    width: 375px;
+    margin: 5px 0px;
+}
+
+.signUpForm__avatarHint {
+    width: 350px;
+    font-weight: bold;
+}
+
+.signUpForm__submit {
+    height: 14%;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 130px;
+    background-color: #555;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.signUpForm__submit:hover {
+    background-color: #888;
+    color: snow;
+}
+
+.signUpForm__signUp {
+    height: 8%;
+    width: 310px;
+    display: flex;
+    justify-content: center;
+    margin: 5px 0px;
+    transition: all 0.3s;
+}
+
+.signUpForm__signUp:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+.signUpForm__hint {
+    font-size: 14px;
+}
+
+/* signUp Avatars */
+.ava {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.ava__lbl {
+    color: snow;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    margin-right: 15px;
+}
+
+.ava__lbl:last-child {
+    margin-right: 0px;
+}
+
+.ava__img {
+    margin-top: 10px;
+    padding: 3px;
+    border: snow 3px double;
+    border-radius: 3px;
+    transition: all 0.25s;
+    box-sizing: border-box;
+}
+
+.ava__img:hover {
+    border: pink 3px double;
+}
+
+.ava__rbn:checked+img {
+    border: gold 3px solid;
+}
+
+/* pages 換頁 */
+.pages {
+    width: 60%;
+    color: snow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.page {
+    /* width: 20px;
+        height: 20px; */
+    margin: 0px 5px;
+    cursor: pointer;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.currentPage {
+    color: royalblue;
+    font-size: 24px;
+    font-weight: bold;
+}
